@@ -14,8 +14,8 @@ spring:
       ddl-auto: update
   servlet:
     multipart:
-      max-file-size: 100MB # 最大支持文件大小
-      max-request-size: 100MB # 最大支持请求大小
+      max-file-size: 1000MB # 最大支持文件大小
+      max-request-size: 1000MB # 最大支持请求大小
 
 # 拦截器相关的配置
 interceptors:
