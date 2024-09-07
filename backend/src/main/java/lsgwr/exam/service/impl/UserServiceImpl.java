@@ -99,11 +99,17 @@ public class UserServiceImpl implements UserService {
             String passwordDb = Base64.decodeStr(user.getUserPassword());
             // 用户请求参数中的密码
             String passwordQo = loginQo.getPassword();
-            System.out.println(passwordDb);
-            System.out.println(passwordQo);
+            System.out.println("DB存储密码："+passwordDb);
+            System.out.println("请求密码："+passwordQo);
             if (passwordQo.equals(passwordDb)) {
                 // 如果密码相等地话说明认证成功,返回生成的token，有效期为一天
+                if (passwordQo.equals("admin123")){
+                    System.out.println("这是内置用户");
+                }else {
+                    System.out.println("不是内置用户");
+                }
                 return JwtUtils.genJsonWebToken(user);
+            }else {System.out.println("用户名密码错误："+passwordQo);
             }
         }
         return null;
@@ -154,7 +160,10 @@ public class UserServiceImpl implements UserService {
 
             // 4.2 向Page中添加action
             List<ActionVo> actionVoList = new ArrayList<>();
-            String actionIdsStr = page.getActionIds();
+            String actionIdsStr = null;
+            if (page != null) {
+                actionIdsStr = page.getActionIds();
+            }
             String[] actionIdArr = actionIdsStr.split("-");
             for (String actionIdStr : actionIdArr) {
                 Integer actionId = Integer.parseInt(actionIdStr);
