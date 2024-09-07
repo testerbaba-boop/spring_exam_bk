@@ -72,9 +72,12 @@ public class LoginInterceptor implements HandlerInterceptor {
             String id = (String) claims.get("id");
             // 用户名
             String username = (String) claims.get("username");
+            System.out.printf("LoginInterceptor----null%s%n", id);
+            System.out.println(username);
             // 把这两个参数放到请求中，从而可以在controller中获取到，不需要在controller中在用Jwt解密了,request.getAttribute("属性名")即可获取
             request.setAttribute("user_id", id);
             request.setAttribute("username", username);
+            request.setAttribute("username_userId", username+id);
             return true;
         }
         sendJsonMessage(response, JsonData.buildError("token为null,请先登录！"));
