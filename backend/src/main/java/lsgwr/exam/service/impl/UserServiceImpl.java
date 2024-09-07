@@ -87,9 +87,11 @@ public class UserServiceImpl implements UserService {
         if (LoginTypeEnum.USERNAME.getType().equals(loginQo.getLoginType())) {
             // 登陆者用地是用户名
             user = userRepository.findByUserUsername(loginQo.getUserInfo());
+            System.out.println(user);
         } else {
             // 登陆者用地是邮箱
             user = userRepository.findByUserEmail(loginQo.getUserInfo());
+            System.out.println(user);
         }
         if (user != null) {
             // 如果user不是null即能找到，才能验证用户名和密码
@@ -146,7 +148,9 @@ public class UserServiceImpl implements UserService {
             // 4.1 向Role中添加Page
             Page page = pageRepository.findById(pageId).orElse(null);
             PageVo pageVo = new PageVo();
-            BeanUtils.copyProperties(page, pageVo);
+            if (page != null) {
+                BeanUtils.copyProperties(page, pageVo);
+            }
 
             // 4.2 向Page中添加action
             List<ActionVo> actionVoList = new ArrayList<>();
